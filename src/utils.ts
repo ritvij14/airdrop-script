@@ -15,19 +15,20 @@ const payer = anchor.web3.Keypair.fromSecretKey(
 //   SESSION_8 = "https://res.cloudinary.com/dtzqgftjk/raw/upload/v1679508093/nas-solana-8_m1rqky.json",
 // }
 
-export const METADATA_URI =
-  "https://res.cloudinary.com/dtzqgftjk/raw/upload/v1679508093/nas-solana-8_m1rqky.json";
+// export const METADATA_URI =
+//   "https://res.cloudinary.com/dtzqgftjk/raw/upload/v1679508093/nas-solana-8_m1rqky.json";
 export const CURRENT_PATH = "./data/session-8.json";
 export const BATCH_SIZE = 50;
 
 export interface Item {
-  "HIGHLIGHT IN PINK - NEW ADDITION": string;
-  "": string;
-  __1: string;
-  __2: string;
-  __3: string;
-  __4: string;
-  __5: string;
+  "Cohort Number": string;
+  "Full Name": string;
+  "Email Address": string;
+  "Wallet Address": string;
+  "Total Score": string;
+  "Letter Grade": string;
+  GDrive: string;
+  PNG: string;
 }
 
 const connection = new Connection(
@@ -42,11 +43,11 @@ const sleep = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-const airdropOne = async (owner: string) => {
+const airdropOne = async (owner: string, uri: string) => {
   try {
     sleep(300);
     const { nft } = await metaplex.nfts().create({
-      uri: METADATA_URI,
+      uri: uri,
       name: "NAS x Solana Developer Course",
       sellerFeeBasisPoints: 0,
       tokenOwner: new PublicKey(owner),
@@ -58,13 +59,13 @@ const airdropOne = async (owner: string) => {
   }
 };
 
-const length = () => {
-  const data = fs.readFileSync(CURRENT_PATH, "utf8");
-  const json: Item[] = JSON.parse(data.toString());
+// const length = () => {
+//   const data = fs.readFileSync(CURRENT_PATH, "utf8");
+//   const json: Item[] = JSON.parse(data.toString());
 
-  return json.filter((item) => item.__4 === "TRUE").length;
-};
+//   return json.filter((item) => item.__4 === "TRUE").length;
+// };
 
-console.log(length());
+// console.log(length());
 
 export { airdropOne, sleep };
